@@ -16,23 +16,41 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".PlaceholderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.MathQuiz"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.TicTacToe"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.EvenOrOdd"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.RockPaperScissors"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.GameHubActivity"
+            android:exported="false" />
+        <activity
             android:name=".notifications"
             android:exported="false" />
         <activity
             android:name=".chats"
             android:exported="false" />
         <activity
-            android:name=".winActivity"
+            android:name=".ui.activities.winActivity"
             android:exported="false" />
         <activity
-            android:name=".guessTheNumber"
+            android:name=".ui.activities.guessTheNumber"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".signupTab"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,9 +61,9 @@
         <activity
             android:name=".profilePage"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.activities.MainActivity" />
         <activity
-            android:name=".loginTab"
+            android:name=".ui.activities.loginTab"
             android:exported="true" />
     </application>
 

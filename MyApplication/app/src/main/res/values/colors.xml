@@ -141,5 +141,8 @@
     <color name="medium_blue">#0000CD</color>
     <color name="dark_blue">#00008B</color>
     <color name="navy">#000080</color>
+    <color name="background_dark">#121212</color>
+    <color name="colorPrimary">#1E1E2D</color>
+    <color name="neon_blue">#00E5FF</color>
 
 </resources>

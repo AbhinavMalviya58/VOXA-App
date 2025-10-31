@@ -1,9 +1,8 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -22,7 +21,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
-import com.example.myapplication.Models.Users;
+import com.example.myapplication.data.Models.Users;
+import com.example.myapplication.R;
+import com.example.myapplication.signupTab;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

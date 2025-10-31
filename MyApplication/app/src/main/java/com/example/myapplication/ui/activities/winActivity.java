@@ -1,9 +1,11 @@
-package com.example.myapplication;
+package com.example.myapplication.ui.activities;
 
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.R;
 
 public class winActivity extends AppCompatActivity {
 
