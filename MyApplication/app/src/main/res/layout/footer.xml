@@ -13,59 +13,98 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:id="@+id/navHome"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
 
             <ImageView
+                android:id="@+id/imgHome"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/home_tab" />
+                android:src="@drawable/home_tab"
+                app:tint="@color/nav_icon_tint"
+                android:contentDescription="Home" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navVibe"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp">
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
 
             <ImageView
+                android:id="@+id/imgVibe"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ondemand_video_24" />
+                android:src="@drawable/ondemand_video_24"
+                app:tint="@color/nav_icon_tint"
+                android:contentDescription="Vibe" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navVox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:layout_marginRight="45dp">
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
 
             <ImageView
+                android:id="@+id/imgVox"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/post_add_24" />
+                android:src="@drawable/post_add_24"
+                app:tint="@color/nav_icon_tint"
+                android:contentDescription="Vox" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navGames"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="45dp">
+            android:layout_height="48dp"
+            android:layout_marginEnd="32dp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
 
-        <ImageView
-            android:id="@+id/guessTheNumberHome"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/videogame_asset_24" />
+            <ImageView
+                android:id="@+id/imgGames"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/videogame_asset_24"
+                app:tint="@color/nav_icon_tint"
+                android:contentDescription="Games" />
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/navNotif"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless">
 
             <ImageView
+                android:id="@+id/imgNotif"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/notifications_active_24" />
+                android:src="@drawable/notifications_active_24"
+                app:tint="@color/nav_icon_tint"
+                android:contentDescription="Notifications" />
         </LinearLayout>
 
     </LinearLayout>

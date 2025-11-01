@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".profilePage">
 
     <LinearLayout
@@ -51,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
-                android:padding="10dp"
+                android:padding="@dimen/spacing_medium"
                 android:layout_marginTop="20dp">
 
                 <LinearLayout
@@ -61,11 +62,24 @@
                     android:layout_marginTop="0dp"
                     android:padding="5dp">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/userImg"
-                        android:layout_width="148dp"
-                        android:layout_height="150dp"
-                        android:background="@drawable/borderline" />
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/userImg"
+                            android:layout_width="@dimen/avatar_size"
+                            android:layout_height="@dimen/avatar_size"
+                            android:contentDescription="Profile photo"
+                            android:background="@drawable/borderline" />
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fabChangePhoto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:layout_margin="@dimen/spacing_small"
+                            android:visibility="gone"
+                            app:srcCompat="@drawable/baseline_edit_24"/>
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -106,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="@dimen/spacing_large">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -126,13 +140,60 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
 
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputDisplayNameLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputDisplayName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Display Name"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputUserIdLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            app:helperText="Only a-z, 0-9, _">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputUserId"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="User ID (10 chars)"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
                         <TextView
+                            android:id="@+id/bioLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
                             android:text="@string/bio"
                             android:textSize="15sp"
                             android:layout_alignParentStart="true" />
+                        <TextView
+                            android:id="@+id/bioValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/bioLabel"
+                            android:layout_marginTop="6dp"
+                            android:text=""
+                            android:textSize="14sp"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/inputBioLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/bioLabel"
+                            android:layout_marginTop="6dp"
+                            android:visibility="gone">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/inputBio"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="3"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -165,6 +226,56 @@
                             android:textStyle="bold"/>
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/userMetaRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="8dp">
+                        <TextView
+                            android:id="@+id/textUserId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@user_id"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/followersCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="0 Followers"
+                            android:textSize="14sp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="4dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"/>
+                        <TextView
+                            android:id="@+id/followingCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="0 Following"
+                            android:textSize="14sp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="4dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"/>
+                        <Button
+                            android:id="@+id/btnFollow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Follow"/>
+                        <Button
+                            android:id="@+id/btnShare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Share"/>
+                    </LinearLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -195,32 +306,6 @@
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
-
-<!--                    <RelativeLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:layout_marginEnd="10dp"-->
-<!--                        android:layout_marginTop="15dp">-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:fontFamily="@font/poppinsmedium"-->
-<!--                            android:text="@string/username_"-->
-<!--                            android:textSize="15sp"-->
-<!--                            android:layout_alignParentStart="true"-->
-<!--                            android:textStyle="bold"/>-->
-<!--                        <TextView-->
-<!--                            android:id="@+id/shoName"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:textColor="#6E6C6C"-->
-<!--                            android:hint="@string/app_name"-->
-<!--                            android:fontFamily="@font/poppinsmedium"-->
-<!--                            android:textSize="15sp"-->
-<!--                            android:layout_alignParentEnd="true"-->
-<!--                            android:textStyle="bold"/>-->
-<!--                    </RelativeLayout>-->
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -332,6 +417,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Game Stats"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp">
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="XP:" android:textStyle="bold"/>
+                        <TextView android:id="@+id/xpValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Level:" android:textStyle="bold"/>
+                        <TextView android:id="@+id/levelValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rank:" android:textStyle="bold"/>
+                        <TextView android:id="@+id/rankValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Wins:" android:textStyle="bold"/>
+                        <TextView android:id="@+id/totalWinsValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Current Streak:" android:textStyle="bold"/>
+                        <TextView android:id="@+id/currentStreakValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Highest Streak:" android:textStyle="bold"/>
+                        <TextView android:id="@+id/highestStreakValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Per Game:" android:textStyle="bold" android:layout_marginTop="8dp"/>
+                        <TextView android:id="@+id/stat_guess_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Guess The Number: 0"/>
+                        <TextView android:id="@+id/stat_rps" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rock Paper Scissors: 0"/>
+                        <TextView android:id="@+id/stat_even_odd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Even or Odd: 0"/>
+                        <TextView android:id="@+id/stat_ttt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tic Tac Toe: 0"/>
+                        <TextView android:id="@+id/stat_math" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Math Quiz High Score: 0"/>
+                        <TextView android:id="@+id/stat_hl" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Higher Lower: 0"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
                 app:cardCornerRadius="10dp">
 
@@ -355,31 +495,29 @@
                             android:layout_alignParentStart="true"
                             android:textStyle="bold"/>
                     </RelativeLayout>
-                    <GridLayout
+                    <LinearLayout
+                        android:id="@+id/socialLinksContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:useDefaultMargins="true"
-                        android:rowCount="1"
-                        android:columnCount="3">
-                        <com.airbnb.lottie.LottieAnimationView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            app:lottie_loop="true"
-                            app:lottie_autoPlay="true"
-                            app:lottie_rawRes="@raw/twitter"/>
-                        <com.airbnb.lottie.LottieAnimationView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            app:lottie_loop="true"
-                            app:lottie_autoPlay="true"
-                            app:lottie_rawRes="@raw/linkedin"/>
-                        <com.airbnb.lottie.LottieAnimationView
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            app:lottie_loop="true"
-                            app:lottie_autoPlay="true"
-                            app:lottie_rawRes="@raw/github"/>
-                    </GridLayout>
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end"
+                        android:layout_marginTop="8dp">
+                        <Button
+                            android:id="@+id/btnAddLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add Link"/>
+                        <Button
+                            android:id="@+id/btnEditLinks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Edit Links"/>
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -406,7 +544,43 @@
                     android:text="@string/logout"
                     android:textSize="25sp"
                     app:cornerRadius="30dp" />
+
+                <Button
+                    android:id="@+id/btnSaveProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:text="Save"
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btnCancelEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/btnSaveProfile"
+                    android:layout_marginEnd="8dp"
+                    android:text="Cancel"
+                    android:visibility="gone"/>
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/savingProgress"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_toStartOf="@id/btnCancelEdit"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"/>
             </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:padding="12dp">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/baseline_edit_24"/>
+            </LinearLayout>
         </LinearLayout>
 
 

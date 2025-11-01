@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myapplication"
+    namespace = "com.WANGDULabs.VOXA"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.WANGDULabs.VOXA"
         minSdk = 27
         targetSdk = 36
         versionCode = 1
@@ -44,12 +44,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.4.0")
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:34.5.0"))
-    implementation ("com.google.android.material:material:1.13.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("com.google.android.material:material:1.13.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("com.google.firebase:firebase-crashlytics:20.0.3")
-    implementation("com.google.firebase:firebase-auth:24.0.1")
     implementation("androidx.gridlayout:gridlayout:1.1.0")
     implementation("com.google.firebase:firebase-database:22.0.1")
 //    implementation("androidx.activity:activity:1.11.0")
@@ -63,4 +61,11 @@ dependencies {
     implementation ("com.airbnb.android:lottie:6.7.0")
     implementation("com.github.AtifSayings:Animatoo:1.0.1")
     implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
+    // Glide for avatar and image loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    // Firestore for search and chat
+    implementation("com.google.firebase:firebase-firestore")
+    // Storage for profile photos
+    implementation("com.google.firebase:firebase-storage")
 }

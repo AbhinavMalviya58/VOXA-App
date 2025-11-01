@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name=".VoxaApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -65,6 +66,22 @@
         <activity
             android:name=".ui.activities.loginTab"
             android:exported="true" />
+        <activity
+            android:name=".ui.activities.ChatListActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity" />
+        <activity
+            android:name=".ui.activities.ChatDetailFirestoreActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.ChatListActivity" />
+        <activity
+            android:name=".ui.activities.FollowersListActivity"
+            android:exported="false"
+            android:parentActivityName=".profilePage" />
+        <activity
+            android:name=".ui.activities.FollowingListActivity"
+            android:exported="false"
+            android:parentActivityName=".profilePage" />
     </application>
 
 </manifest>
