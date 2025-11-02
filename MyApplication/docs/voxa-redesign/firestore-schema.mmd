@@ -1,0 +1,58 @@
+%% Mermaid ER diagram for Firestore
+erDiagram
+  USERS ||--o{ FOLLOWS_FOLLOWERS : has
+  USERS ||--o{ FOLLOWS_FOLLOWING : has
+  USERS ||--o{ FOLLOW_REQUESTS_INCOMING : has
+  USERS ||--o{ FOLLOW_REQUESTS_OUTGOING : has
+  USERS ||--o{ CONVERSATIONS : participates
+  CONVERSATIONS ||--o{ MESSAGES : contains
+  USERS ||--o{ POSTS : authors
+  POSTS ||--o{ COMMENTS : has
+  POSTS ||--o{ LIKES : has
+  USERS ||--o{ NOTIFICATIONS : receives
+
+  USERS {
+    string uid PK
+    string displayName
+    string displayName_lc
+    string userId_lc
+    string email
+    string photoUrl
+    string bannerUrl
+    string bio
+    boolean isPrivate
+    number xp
+    number level
+    number rank
+    number totalWins
+    number currentStreak
+    number highestStreak
+    number followersCount
+    number followingCount
+    string fcmToken
+  }
+  CONVERSATIONS {
+    string cid PK
+    string[] participants
+    string lastMessage
+    timestamp updatedAt
+  }
+  MESSAGES {
+    string mid PK
+    string senderId
+    string text
+    string imageUrl
+    timestamp createdAt
+    string[] deliveredTo
+    string[] seenBy
+  }
+  POSTS {
+    string postId PK
+    string author.uid
+    string author.displayName
+    string author.photoUrl
+    string text
+    string[] media
+    timestamp createdAt
+    timestamp updatedAt
+  }

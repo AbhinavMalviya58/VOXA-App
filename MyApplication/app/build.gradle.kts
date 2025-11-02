@@ -68,4 +68,6 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     // Storage for profile photos
     implementation("com.google.firebase:firebase-storage")
+    implementation ("com.google.firebase:firebase-functions")
+
 }

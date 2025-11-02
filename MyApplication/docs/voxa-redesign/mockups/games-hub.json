@@ -1,0 +1,24 @@
+{
+  "screen": "Games Hub",
+  "id": "games_hub_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "appbar", "id": "topbar", "frame": [0,0,1080,128], "title": "Games"},
+    {"type": "grid", "id": "gameCards", "cols": 2, "gap": 16, "frame": [24,144,1032,2000], "itemTemplate": "gameCard"},
+    {"type": "footer", "id": "footer", "frame": [0,2240,1080,160], "active": "games"}
+  ],
+  "templates": {
+    "gameCard": {
+      "frame": [0,0,504,360],
+      "layers": [
+        {"type": "image", "id": "thumb", "frame": [0,0,504,220]},
+        {"type": "text", "id": "title", "frame": [16,232,360,48], "style": {"size": "typography.sizes.lg", "weight": "semibold"}},
+        {"type": "row", "id": "buttons", "frame": [16,288,472,56], "children": [
+          {"type": "button", "text": "Invite", "style": {"variant": "secondary"}},
+          {"type": "button", "text": "Play", "style": {"variant": "primary", "gradient": "colors.gradients.cta"}}
+        ]}
+      ]
+    }
+  }
+}

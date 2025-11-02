@@ -1,0 +1,38 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() { return request.auth != null; }
+    function isSelf(uid) { return isSignedIn() && request.auth.uid == uid; }
+
+    // Profile images
+    match /profile_images/{uid}/{fileName} {
+      allow read: if true;
+      allow write: if isSelf(uid);
+    }
+
+    // Banner images
+    match /banners/{uid}/{fileName} {
+      allow read: if true;
+      allow write: if isSelf(uid);
+    }
+
+    // Post media
+    match /posts/{postId}/{fileName} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid == postId.split('_')[0];
+    }
+
+    // Chat images
+    match /chat_images/{conversationId}/{messageId}/{fileName} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
+    }
+
+    // Game assets (public)
+    match /game_assets/{gameId}/{fileName} {
+      allow read: if true;
+      allow write: if false; // admin only
+    }
+  }
+}

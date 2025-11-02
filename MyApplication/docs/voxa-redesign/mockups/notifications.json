@@ -1,0 +1,14 @@
+{
+  "screen": "Notifications",
+  "id": "notifications_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "appbar", "id": "topbar", "frame": [0,0,1080,128], "title": "Notifications"},
+    {"type": "section", "id": "requests", "title": "Follow Requests", "frame": [0,128,1080,600], "listItem": "requestItem"},
+    {"type": "section", "id": "likes", "title": "Likes", "frame": [0,728,1080,400], "listItem": "likeItem"},
+    {"type": "section", "id": "messages", "title": "Messages", "frame": [0,1128,1080,400], "listItem": "messageItem"},
+    {"type": "section", "id": "invites", "title": "Game Invites", "frame": [0,1528,1080,400], "listItem": "inviteItem"},
+    {"type": "footer", "id": "footer", "frame": [0,2240,1080,160], "active": "notif"}
+  ]
+}

@@ -21,9 +21,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/footerContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/attachBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/add"/>
 
         <EditText
             android:id="@+id/messageInput"
@@ -41,6 +48,17 @@
             android:layout_marginStart="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/baseline_send_24"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <include layout="@layout/footer"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

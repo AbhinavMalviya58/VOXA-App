@@ -1,0 +1,16 @@
+{
+  "screen": "Chat Detail",
+  "id": "chat_detail_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "appbar", "id": "topbar", "frame": [0,0,1080,128], "title": "{user.displayName}", "avatar": "{user.photoUrl}"},
+    {"type": "list", "id": "messages", "frame": [0,128,1080,1936], "itemTemplate": "messageBubble"},
+    {"type": "row", "id": "composer", "frame": [0,2064,1080,176], "children": [
+      {"type": "icon", "icon": "paperclip"},
+      {"type": "input", "hint": "Message"},
+      {"type": "icon", "icon": "send"}
+    ]},
+    {"type": "footer", "id": "footer", "frame": [0,2240,1080,160], "active": "home"}
+  ]
+}

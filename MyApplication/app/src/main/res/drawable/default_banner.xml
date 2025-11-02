@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!--
+      This creates a linear gradient.
+      The angle is 270, which means the gradient goes from bottom to top.
+      It starts with a deep purple, moves to a dark blue in the center,
+      and ends with the main dark background color for a seamless look.
+    -->
+    <gradient
+        android:angle="270"
+        android:startColor="#2C0A4F"
+        android:centerColor="#1C164E"
+        android:endColor="#121212"
+        android:type="linear" />
+
+</shape>

@@ -1,0 +1,76 @@
+{
+  "collections": {
+    "users": {
+      "{uid}": {
+        "displayName": "string",
+        "displayName_lc": "string",
+        "userId_lc": "string",
+        "email": "string",
+        "photoUrl": "string",
+        "bannerUrl": "string",
+        "bio": "string",
+        "gender": "string",
+        "dateOfBirth": "string",
+        "isPrivate": "boolean",
+        "xp": "number (server-only)",
+        "level": "number (server-only)",
+        "rank": "number (server-only)",
+        "totalWins": "number (server-only)",
+        "currentStreak": "number (server-only)",
+        "highestStreak": "number (server-only)",
+        "followersCount": "number",
+        "followingCount": "number",
+        "fcmToken": "string"
+      }
+    },
+    "userIds": {"{handle}": {"uid": "string"}},
+    "displayNames": {"{nameLc}": {"uid": "string"}},
+    "follows": {
+      "{uid}": {
+        "following": {"{other}": {"createdAt": "timestamp"}},
+        "followers": {"{other}": {"createdAt": "timestamp"}}
+      }
+    },
+    "follow_requests": {
+      "{uid}": {
+        "incoming": {"{requester}": {"createdAt": "timestamp"}},
+        "outgoing": {"{target}": {"createdAt": "timestamp"}}
+      }
+    },
+    "conversations": {
+      "{cid}": {
+        "participants": ["uid","uid"],
+        "lastMessage": "string",
+        "updatedAt": "timestamp",
+        "messages": {
+          "{mid}": {
+            "senderId": "uid",
+            "text": "string",
+            "imageUrl": "string",
+            "createdAt": "timestamp",
+            "deliveredTo": ["uid"],
+            "seenBy": ["uid"],
+            "reactions": {"{uid}": "emoji"}
+          }
+        }
+      }
+    },
+    "posts": {
+      "{postId}": {
+        "author": {"uid": "string", "displayName": "string", "photoUrl": "string"},
+        "text": "string",
+        "media": ["url"],
+        "createdAt": "timestamp",
+        "updatedAt": "timestamp",
+        "likes": {"{uid}": {"createdAt": "timestamp"}},
+        "comments": {"{cid}": {"author": {"uid": "string"}, "text": "string", "createdAt": "timestamp"}}
+      }
+    },
+    "notifications": {
+      "{uid}": {"items": {"{nid}": {"type": "string", "data": {}, "createdAt": "timestamp", "read": "boolean"}}}
+    },
+    "leaderboards": {
+      "{gameId}": {"{uid}": {"score": "number", "wins": "number", "updatedAt": "timestamp"}}
+    }
+  }
+}

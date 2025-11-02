@@ -1,0 +1,19 @@
+{
+  "presence": {
+    "{uid}": {"online": true, "lastActive": 0}
+  },
+  "lobbies": {
+    "{gameId}": {
+      "{lobbyId}": {
+        "host": "uid",
+        "invited": {"{uid}": true},
+        "accepted": {"{uid}": true},
+        "state": "pending|ready|started|finished",
+        "createdAt": 0
+      }
+    }
+  },
+  "chats": {
+    "public": {"messages": {"{msgId}": {"id": "string", "senderId": "uid", "text": "string", "timestamp": 0}}}
+  }
+}

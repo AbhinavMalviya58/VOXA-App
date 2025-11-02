@@ -1,5 +1,6 @@
 package com.WANGDULabs.VOXA.ui.adapters;
 
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.WANGDULabs.VOXA.R;
 import com.WANGDULabs.VOXA.data.Models.ChatListItem;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.VH> {
@@ -43,18 +45,25 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.VH> {
         h.lastMessage.setText(item.getLastMessage() == null ? "" : item.getLastMessage());
         if (item.getPhotoUrl() != null && !item.getPhotoUrl().isEmpty())
             Glide.with(h.itemView.getContext()).load(item.getPhotoUrl()).circleCrop().into(h.avatar);
+        if (h.time != null) h.time.setText(formatTime(item.getUpdatedAt()));
         h.itemView.setOnClickListener(v -> onClick.onItem(item));
     }
 
     @Override public int getItemCount() { return items.size(); }
 
     static class VH extends RecyclerView.ViewHolder {
-        ImageView avatar; TextView name; TextView lastMessage;
+        ImageView avatar; TextView name; TextView lastMessage; TextView time;
         VH(@NonNull View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.avatar);
             name = itemView.findViewById(R.id.name);
             lastMessage = itemView.findViewById(R.id.lastMessage);
+            time = itemView.findViewById(R.id.time);
         }
+    }
+
+    private String formatTime(long ts) {
+        if (ts <= 0) return "";
+        return DateFormat.format("hh:mm a", new Date(ts)).toString();
     }
 }

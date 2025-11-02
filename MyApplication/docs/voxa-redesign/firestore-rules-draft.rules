@@ -1,0 +1,119 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() { return request.auth != null; }
+    function isSelf(uid) { return isSignedIn() && request.auth.uid == uid; }
+    function changedKeys() { return request.resource.data.diff(resource.data).changedKeys(); }
+    function onlyProfileEditable(changed) {
+      return changed.hasOnly(['displayName','displayName_lc','bio','gender','dateOfBirth','photoUrl','bannerUrl','fcmToken','isPrivate']);
+    }
+    function isParticipant(cid) {
+      return isSignedIn() && (request.auth.uid in get(/databases/$(database)/documents/conversations/$(cid)).data.participants);
+    }
+    function isUserPublic(uid) {
+      return !get(/databases/$(database)/documents/users/$(uid)).data.isPrivate;
+    }
+    function isMutualFollow(a, b) {
+      return exists(/databases/$(database)/documents/follows/$(a)/following/$(b)) &&
+             exists(/databases/$(database)/documents/follows/$(b)/following/$(a));
+    }
+    function canSendMessage(cid) {
+      let conv = get(/databases/$(database)/documents/conversations/$(cid)).data;
+      return isSignedIn() && (request.auth.uid in conv.participants) && (
+        conv.participants.size() == 2 && (
+          isUserPublic(conv.participants[0]) || isUserPublic(conv.participants[1]) ||
+          isMutualFollow(conv.participants[0], conv.participants[1])
+        )
+      );
+    }
+
+    // users
+    match /users/{uid} {
+      allow read: if true;
+      allow create: if isSelf(uid);
+      allow update: if isSelf(uid) && onlyProfileEditable(changedKeys());
+      // xp/level/rank and counters are function-owned; client cannot modify
+      allow delete: if false;
+    }
+
+    // userIds and displayNames uniqueness
+    match /userIds/{handle} {
+      allow read: if true;
+      allow create: if isSignedIn() && !exists(/databases/$(database)/documents/userIds/$(handle)) && request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+    match /displayNames/{nameLc} {
+      allow read: if true;
+      allow create: if isSignedIn() && !exists(/databases/$(database)/documents/displayNames/$(nameLc)) && request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+
+    // follows
+    match /follows/{uid} {
+      match /following/{other} {
+        allow read: if isSignedIn();
+        allow write: if isSignedIn() && request.auth.uid == uid; // follower writes their following
+      }
+      match /followers/{other} {
+        allow read: if isSignedIn();
+        allow write: if isSignedIn() && request.auth.uid == other; // follower writes follower entry under target
+      }
+    }
+
+    // follow requests
+    match /follow_requests/{uid} {
+      match /incoming/{requester} {
+        allow read: if isSignedIn() && (request.auth.uid == uid || request.auth.uid == requester);
+        allow create, update: if isSignedIn() && request.auth.uid == requester; // requester creates/updates under target's incoming
+        allow delete: if isSignedIn() && (request.auth.uid == requester || request.auth.uid == uid); // requester or target can delete (approve/decline)
+      }
+      match /outgoing/{target} {
+        allow read: if isSignedIn() && (request.auth.uid == uid || request.auth.uid == target);
+        allow create, update: if isSignedIn() && request.auth.uid == uid; // requester manages their outgoing
+        allow delete: if isSignedIn() && (request.auth.uid == uid || request.auth.uid == target); // requester or target can delete
+      }
+    }
+
+    // conversations metadata (limited writes)
+    match /conversations/{cid} {
+      allow read: if isSignedIn() && (request.auth.uid in resource.data.participants);
+      allow create: if isSignedIn() && (request.auth.uid in request.resource.data.participants) &&
+        request.resource.data.keys().hasOnly(['participants','updatedAt','lastMessage']);
+      allow update: if isSignedIn() && (request.auth.uid in resource.data.participants) &&
+        changedKeys().hasOnly(['participants','updatedAt','lastMessage']);
+      allow delete: if false;
+
+      match /messages/{mid} {
+        allow read: if isParticipant(cid);
+        allow create: if canSendMessage(cid);
+        allow update, delete: if false;
+      }
+    }
+
+    // notifications (clients read only; writes by Functions)
+    match /notifications/{uid}/items/{nid} {
+      allow read: if isSelf(uid);
+      allow write: if false;
+    }
+
+    // posts, comments (basic scaffolding)
+    match /posts/{postId} {
+      allow read: if true;
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.author.uid;
+      allow update: if isSignedIn() && request.auth.uid == resource.data.author.uid && changedKeys().hasOnly(['text','media','updatedAt']);
+      allow delete: if isSignedIn() && request.auth.uid == resource.data.author.uid;
+      match /likes/{uid} {
+        allow read: if true;
+        allow write: if isSignedIn() && request.auth.uid == uid;
+      }
+      match /comments/{cid} {
+        allow read: if true;
+        allow create: if isSignedIn();
+        allow update, delete: if false;
+      }
+    }
+  }
+}

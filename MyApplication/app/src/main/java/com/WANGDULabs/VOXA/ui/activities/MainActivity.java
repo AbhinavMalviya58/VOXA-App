@@ -26,12 +26,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.WANGDULabs.VOXA.data.repository.SocialRepository;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
+import java.util.List; 
 import java.util.Set;
 import java.util.Map;
 
@@ -200,21 +201,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void toggleFollow(String me, String other) {
         if (me == null || other == null || me.equals(other)) return;
-        FirebaseFirestore.getInstance().collection("follows").document(me).collection("following").document(other).get()
-                .addOnSuccessListener(doc -> {
-                    if (doc != null && doc.exists()) {
-                        FirebaseFirestore.getInstance().runBatch(batch -> {
-                            batch.delete(FirebaseFirestore.getInstance().collection("follows").document(me).collection("following").document(other));
-                            batch.delete(FirebaseFirestore.getInstance().collection("follows").document(other).collection("followers").document(me));
-                        });
-                    } else {
-                        FirebaseFirestore.getInstance().runBatch(batch -> {
-                            Map<String,Object> meta = new HashMap<>(); meta.put("createdAt", com.google.firebase.firestore.FieldValue.serverTimestamp());
-                            batch.set(FirebaseFirestore.getInstance().collection("follows").document(me).collection("following").document(other), meta);
-                            batch.set(FirebaseFirestore.getInstance().collection("follows").document(other).collection("followers").document(me), meta);
-                        });
-                    }
-                });
+        new SocialRepository().toggleFollowOrRequest(me, other, (success, state, e) -> {
+            // Optional: show a toast or update UI; kept minimal here
+        });
     }
 
     @Override

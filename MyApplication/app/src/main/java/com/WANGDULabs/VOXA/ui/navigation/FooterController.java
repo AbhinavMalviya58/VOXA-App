@@ -47,6 +47,9 @@ public class FooterController {
                 .withEndAction(() -> {
                     v.animate().scaleX(1f).scaleY(1f).setDuration(80).start();
                     activity.startActivity(new Intent(activity, target));
+                    try {
+                        com.blogspot.atifsoftwares.animatoolib.Animatoo.INSTANCE.animateSlideLeft(activity);
+                    } catch (Throwable ignored) {}
                 }).start();
     }
 }

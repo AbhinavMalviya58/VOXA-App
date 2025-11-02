@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "105152390155",
+    "firebase_url": "https://voxa-28f6c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "voxa-28f6c",
+    "storage_bucket": "voxa-28f6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105152390155:android:75df63a826a90d0e04530e",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105152390155-3dl2oofpnu1sj1an397lcr7vj51vn1t4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "bd04596e6c77ae7c30fb111f2223a1d021db5252"
+          }
+        },
+        {
+          "client_id": "105152390155-8sj36htik846tovhu2dfo1ctj3u35ikq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "7bf7d1ee9e04c5ebb211d4ffba53d496013d824f"
+          }
+        },
+        {
+          "client_id": "105152390155-rqg6r32iq01h4tmkl38oncrr0ndlsuak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARzaswLQ7IsUjZ5YZronIvpGhZ0CFwPMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105152390155-rqg6r32iq01h4tmkl38oncrr0ndlsuak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

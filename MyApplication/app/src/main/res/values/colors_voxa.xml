@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary: Modern Blue -->
+    <color name="primary_blue">#007BFF</color>
+    <color name="primary_blue_dark">#0056b3</color>
+    <color name="primary_blue_light">#66b3ff</color>
+
+    <!-- Accent: Bright Blue -->
+    <color name="accent_blue">#00A8FF</color>
+    <color name="accent_blue_dark">#0080CC</color>
+
+    <!-- Background & Surface -->
+    <color name="background">#F8F9FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F1F3F5</color>
+
+    <!-- Text -->
+    <color name="text_primary">#212529</color>
+    <color name="text_secondary">#6C757D</color>
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- Status/States -->
+    <color name="success">#28A745</color>
+    <color name="warning">#FFC107</color>
+    <color name="error">#DC3545</color>
+    <color name="info">#17A2B8</color>
+
+    <!-- Divider/Borders -->
+    <color name="divider">#DEE2E6</color>
+    <color name="border_light">#E9ECEF</color>
+
+    <!-- Footer -->
+    <color name="footer_active">#007BFF</color>
+    <color name="footer_inactive">#ADB5BD</color>
+
+    <!-- Dark Mode (optional) -->
+    <color name="dark_background">#121212</color>
+    <color name="dark_surface">#1E1E1E</color>
+    <color name="dark_text_primary">#FFFFFF</color>
+    <color name="dark_text_secondary">#B3B3B3</color>
+</resources>

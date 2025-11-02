@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+
+    <!-- Yeh pathData medal ke shape ko draw karta hai -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,2c-5.52,0 -10,4.48 -10,10s4.48,10 10,10s10,-4.48 10,-10S17.52,2 12,2zM12,17.27l-3.17,1.54 0.61,-3.52 -2.56,-2.49 3.54,-0.51L12,8.81l1.58,3.48 3.54,0.51 -2.56,2.49 0.61,3.52L12,17.27z"/>
+
+</vector>

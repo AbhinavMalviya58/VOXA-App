@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+
+    <!-- This pathData draws a standard trophy icon (emoji_events) -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M19,9L19,2h-4v2h-4L11,2L7,2v2L3,4v5c0,4.84 3.42,8.87 8,9.8V21h2v-2.2c4.58,-0.93 8,-4.96 8,-9.8zM5,7L5,6h14v1c-1.39,3.12 -4.3,5.3 -7.73,5.43 -3.07,-0.16 -6.04,-1.82 -8.27,-4.43z"/>
+
+</vector>

@@ -1,0 +1,18 @@
+{
+  "scheme": "voxa",
+  "links": [
+    {"uri": "voxa://home", "screen": "home_feed"},
+    {"uri": "voxa://vox", "screen": "vox_feed"},
+    {"uri": "voxa://vibe", "screen": "vibe_highlights"},
+    {"uri": "voxa://games", "screen": "games_hub"},
+    {"uri": "voxa://notifications", "screen": "notifications"},
+    {"uri": "voxa://profile/{uid}", "screen": "profile_other"},
+    {"uri": "voxa://chat/{uid}", "screen": "chat_detail"}
+  ],
+  "intentFilters": [
+    {
+      "activity": "com.WANGDULabs.VOXA.ui.activities.MainActivity",
+      "data": [{"scheme": "voxa"}, {"scheme": "https", "host": "voxa.app"}]
+    }
+  ]
+}

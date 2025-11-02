@@ -1,0 +1,35 @@
+{
+  "brand": {"name": "VOXA", "by": "WANGDU Labs"},
+  "colors": {
+    "background": "#0B0F1A",
+    "surface": "#11172A",
+    "surfaceElevated": "#16203A",
+    "primary": "#7DF9FF",
+    "secondary": "#B388FF",
+    "accent": "#FF6E6E",
+    "success": "#3BF4A5",
+    "warning": "#FFB86B",
+    "danger": "#FF5C5C",
+    "textPrimary": "#E6F1FF",
+    "textSecondary": "#9BB0C8",
+    "divider": "#213050",
+    "gradients": {
+      "brand": ["#6EE6FF", "#B388FF"],
+      "cta": ["#00E8FF", "#00FFA3"],
+      "card": ["#0E1424", "#10182C"]
+    }
+  },
+  "typography": {
+    "fontFamily": {"primary": "Inter", "mono": "JetBrains Mono"},
+    "sizes": {"xs": 12, "sm": 14, "md": 16, "lg": 20, "xl": 24, "display": 32},
+    "weights": {"regular": 400, "medium": 500, "semibold": 600, "bold": 700}
+  },
+  "icons": {"set": "MaterialSymbolsRounded", "alt": "Lucide"},
+  "radii": {"xs": 8, "sm": 12, "md": 16, "lg": 20, "xl": 28},
+  "elevation": {"sm": 2, "md": 6, "lg": 12},
+  "motion": {
+    "durations": {"xs": 80, "sm": 140, "md": 220, "lg": 320},
+    "easing": {"inOut": "cubic-bezier(0.4, 0.0, 0.2, 1)"},
+    "ripples": {"alpha": 0.12}
+  }
+}

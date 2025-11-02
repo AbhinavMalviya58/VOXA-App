@@ -44,7 +44,7 @@ public class EvenOrOdd extends AppCompatActivity {
 
         nextRound();
 
-        FooterController.bind(this, FooterController.Tab.GAMES);
+        FooterController.bind(this, FooterController.Tab.HOME);
     }
 
     private void nextRound() {

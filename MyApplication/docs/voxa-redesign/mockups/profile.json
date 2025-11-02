@@ -1,0 +1,25 @@
+{
+  "screen": "Profile",
+  "id": "profile_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "image", "id": "banner", "frame": [0,0,1080,520], "src": "{user.bannerUrl}", "fallback": "res:default_banner"},
+    {"type": "avatar", "id": "avatar", "frame": [40,360,180,180], "src": "{user.photoUrl}", "style": {"border": {"color": "#11172A", "width": 6}, "shape": "circle"}},
+    {"type": "text", "id": "displayName", "text": "{user.displayName}", "frame": [40,560,800,60], "style": {"size": "typography.sizes.xl", "color": "colors.textPrimary", "weight": "bold"}},
+    {"type": "text", "id": "handle", "text": "@{user.userId_lc}", "frame": [40,620,800,48], "style": {"size": "typography.sizes.md", "color": "colors.textSecondary"}},
+    {"type": "button", "id": "btnFollow", "text": "Follow", "frame": [860,560,180,64], "style": {"variant": "primary", "gradient": "colors.gradients.cta", "radius": "radii.md"}},
+    {"type": "button", "id": "btnMessage", "text": "Message", "frame": [860,640,180,64], "style": {"variant": "secondary", "radius": "radii.md"}},
+    {"type": "text", "id": "bio", "text": "{user.bio}", "frame": [40,690,1000,120], "style": {"size": "typography.sizes.md", "color": "colors.textPrimary"}},
+    {"type": "chips", "id": "stats", "items": [
+      {"icon": "trophy", "text": "Lvl {user.level}"},
+      {"icon": "zap", "text": "{user.xp} XP"},
+      {"icon": "flame", "text": "Streak {user.currentStreak}"},
+      {"icon": "award", "text": "Rank #{user.rank}"}
+    ], "frame": [40,830,1000,56]},
+    {"type": "progress", "id": "xpBar", "frame": [40,900,1000,18], "value": "{user.xp}", "max": "{nextLevelXp}", "animation": "xpProgressFill"},
+    {"type": "tabs", "id": "profileTabs", "items": ["Feed","Followers","Following"], "frame": [0,980,1080,80]},
+    {"type": "list", "id": "followersList", "frame": [0,1060,1080,1240], "itemTemplate": "userRow"},
+    {"type": "footer", "id": "footer", "frame": [0,2240,1080,160], "active": "notif", "style": {"elevation": "elevation.md"}}
+  ]
+}

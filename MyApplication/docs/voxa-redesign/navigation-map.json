@@ -1,0 +1,48 @@
+{
+  "app": "VOXA",
+  "version": "2.0",
+  "tabs": [
+    {"id": "home", "route": "/home", "icon": "home", "deeplink": "voxa://home"},
+    {"id": "vox", "route": "/vox", "icon": "megaphone", "deeplink": "voxa://vox"},
+    {"id": "vibe", "route": "/vibe", "icon": "sparkles", "deeplink": "voxa://vibe"},
+    {"id": "games", "route": "/games", "icon": "gamepad-2", "deeplink": "voxa://games"},
+    {"id": "notif", "route": "/notifications", "icon": "bell", "deeplink": "voxa://notifications"}
+  ],
+  "screens": [
+    {"id": "home_feed", "route": "/home", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.MainActivity", "tab": "home", "startDestination": true, "transitions": {"enter": "slideLeft", "exit": "fade"}},
+    {"id": "vox_feed", "route": "/vox", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.VoxActivity", "tab": "vox", "transitions": {"enter": "slideLeft", "exit": "fade"}},
+    {"id": "vibe_highlights", "route": "/vibe", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.VibeActivity", "tab": "vibe"},
+    {"id": "games_hub", "route": "/games", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.GameHubActivity", "tab": "games"},
+    {"id": "game_even_or_odd", "route": "/games/even-odd", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.EvenOrOdd", "tab": "games"},
+    {"id": "game_rps", "route": "/games/rock-paper-scissors", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.RockPaperScissors", "tab": "games"},
+    {"id": "game_ttt", "route": "/games/tic-tac-toe", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.TicTacToe", "tab": "games"},
+    {"id": "game_math", "route": "/games/math-quiz", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.MathQuiz", "tab": "games"},
+    {"id": "game_guess", "route": "/games/guess-number", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.guessTheNumber", "tab": "games"},
+    {"id": "notifications", "route": "/notifications", "type": "activity", "activity": "com.WANGDULabs.VOXA.notifications", "tab": "notif"},
+    {"id": "chat_list", "route": "/chat", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.ChatListActivity", "tab": "home"},
+    {"id": "chat_detail", "route": "/chat/{conversationId}", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.ChatDetailFirestoreActivity", "arguments": ["conversationId", "otherUid"], "tab": "home"},
+    {"id": "public_chat", "route": "/chat/public", "type": "activity", "activity": "com.WANGDULabs.VOXA.chats", "tab": "home"},
+    {"id": "profile_self", "route": "/profile", "type": "activity", "activity": "com.WANGDULabs.VOXA.profilePage", "arguments": [], "tab": "home"},
+    {"id": "profile_other", "route": "/profile/{uid}", "type": "activity", "activity": "com.WANGDULabs.VOXA.profilePage", "arguments": ["uid"], "tab": "home"},
+    {"id": "followers_list", "route": "/profile/{uid}/followers", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.FollowersListActivity"},
+    {"id": "following_list", "route": "/profile/{uid}/following", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.FollowingListActivity"},
+    {"id": "edit_profile", "route": "/profile/edit", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.EditProfileActivity"},
+    {"id": "motor_control", "route": "/motor", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.MotorControlActivity"},
+    {"id": "login", "route": "/login", "type": "activity", "activity": "com.WANGDULabs.VOXA.ui.activities.loginTab"},
+    {"id": "signup", "route": "/signup", "type": "activity", "activity": "com.WANGDULabs.VOXA.signupTab"}
+  ],
+  "deepLinks": [
+    {"uriPattern": "voxa://profile/{uid}", "target": "profile_other"},
+    {"uriPattern": "voxa://chat/{uid}", "target": "chat_detail"},
+    {"uriPattern": "voxa://post/{postId}", "target": "vox_feed"},
+    {"uriPattern": "voxa://game/{gameId}", "target": "games_hub"},
+    {"uriPattern": "voxa://notifications", "target": "notifications"},
+    {"uriPattern": "https://voxa.app/profile/{uid}", "target": "profile_other"}
+  ],
+  "backstack": {
+    "perTabStack": true,
+    "restoreOnReSelect": true,
+    "crossTab": "singleTop",
+    "animations": {"tabSwitch": "pulse", "modal": "slideUp"}
+  }
+}

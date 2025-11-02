@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,582 +7,451 @@
     android:fitsSystemWindows="true"
     tools:context=".profilePage">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="0dp"
-        android:padding="0dp">
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/materialToolbar"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="10dp"
-            android:background="@drawable/borderline"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:titleEnabled="false">
 
-            <TextView
-                android:id="@+id/profile"
-                android:layout_width="wrap_content"
+            <!-- Profile Header Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/profile"
-                android:fontFamily="@font/madimi"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:layout_gravity="center"
-                android:textColor="@color/black"/>
+                android:layout_marginBottom="24dp"
+                app:layout_collapseMode="parallax">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                app:lottie_rawRes="@raw/settings"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"/>
-        </com.google.android.material.appbar.MaterialToolbar>
+                <!-- User Banner Image -->
+                <ImageView
+                    android:id="@+id/profile_banner"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_banner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#66000000"
+                    app:layout_constraintTop_toTopOf="@id/profile_banner"
+                    app:layout_constraintBottom_toBottomOf="@id/profile_banner"
+                    app:layout_constraintStart_toStartOf="@id/profile_banner"
+                    app:layout_constraintEnd_toEndOf="@id/profile_banner"/>
+
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/userImg"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="120dp"
+                    android:background="@color/black"
+                    android:padding="4dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/profile_banner"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:strokeColor="#FFFFFF"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabChangePhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:backgroundTint="?attr/colorPrimary"
+                    app:srcCompat="@drawable/ic_edit"
+                    app:tint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/userImg"
+                    app:layout_constraintEnd_toEndOf="@id/userImg"
+                    app:fabSize="mini"/>
+
+                <LinearLayout
+                    android:id="@+id/name_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/userImg">
+
+                    <TextView
+                        android:id="@+id/user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/verified" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textUserId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="\@user_id"
+                    android:textColor="#AAAAAA"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name_container" />
+
+                <TextView
+                    android:id="@+id/bioValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="This is my short bio. Gaming enthusiast and social butterfly!"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textUserId" />
+
+                <!-- Followers/Following Stats -->
+                <LinearLayout
+                    android:id="@+id/userMetaRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/bioValue">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/followersCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Followers"
+                            android:textColor="#AAAAAA"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/followingCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Following"
+                            android:textColor="#AAAAAA"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/userMetaRow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnFollow"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="Follow" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnShare"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Share"
+                        app:strokeColor="@color/white"/>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/materialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="Profile"
+                app:titleTextColor="@color/white">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/settings" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="72dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="16dp">
+
+            <!-- Game Stats Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                android:padding="@dimen/spacing_medium"
-                android:layout_marginTop="20dp">
+                app:cardBackgroundColor="#1E1E1E"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#333333">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="0dp"
-                    android:padding="5dp">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/userImg"
-                            android:layout_width="@dimen/avatar_size"
-                            android:layout_height="@dimen/avatar_size"
-                            android:contentDescription="Profile photo"
-                            android:background="@drawable/borderline" />
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/fabChangePhoto"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:layout_margin="@dimen/spacing_small"
-                            android:visibility="gone"
-                            app:srcCompat="@drawable/baseline_edit_24"/>
-                    </FrameLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/user"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user"
-                            android:textAlignment="center"
-                            android:textSize="35sp"
-                            android:textStyle="bold"/>
-
-                        <com.airbnb.lottie.LottieAnimationView
-                            android:layout_width="40dp"
-                            android:layout_height="45dp"
-                            android:layout_gravity="center"
-                            app:lottie_autoPlay="true"
-                            app:lottie_loop="true"
-                            app:lottie_rawRes="@raw/verified" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_large">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:text="@string/about"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputDisplayNameLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/inputDisplayName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Display Name"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputUserIdLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            app:helperText="Only a-z, 0-9, _">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/inputUserId"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="User ID (10 chars)"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:id="@+id/bioLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="30dp"
-                            android:text="@string/bio"
-                            android:textSize="15sp"
-                            android:layout_alignParentStart="true" />
-                        <TextView
-                            android:id="@+id/bioValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/bioLabel"
-                            android:layout_marginTop="6dp"
-                            android:text=""
-                            android:textSize="14sp"/>
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/inputBioLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/bioLabel"
-                            android:layout_marginTop="6dp"
-                            android:visibility="gone">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/inputBio"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:maxLines="3"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/user_information"
-                            android:textSize="15sp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/userMetaRow"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="8dp">
-                        <TextView
-                            android:id="@+id/textUserId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@user_id"
-                            android:textSize="14sp"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/followersCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="0 Followers"
-                            android:textSize="14sp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="4dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"/>
-                        <TextView
-                            android:id="@+id/followingCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="0 Following"
-                            android:textSize="14sp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="4dp"
-                            android:background="?attr/selectableItemBackgroundBorderless"/>
-                        <Button
-                            android:id="@+id/btnFollow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:text="Follow"/>
-                        <Button
-                            android:id="@+id/btnShare"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Share"/>
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/email"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/shoEmail"
-                            android:layout_width="321dp"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="13dp"
-                            android:gravity="end"
-                            android:layout_toEndOf="@+id/textView2"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:text="@string/axxxxxxa_gmail_com"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/gender"
-                            android:textSize="15sp"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:layout_alignParentStart="true"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/genderName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#6E6C6C"
-                            android:text="@string/male"
-                            android:textSize="15sp"
-                            android:layout_alignParentEnd="true"
-                            android:textStyle="bold"
-                            tools:ignore="RelativeOverlap" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/date_of_birth"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="15sp"
-                            android:layout_alignParentStart="true"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/DOB"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#6E6C6C"
-                            android:text="@string/_00_00_2024"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="15sp"
-                            android:layout_alignParentEnd="true"
-                            android:textStyle="bold"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/age"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="15sp"
-                            android:layout_alignParentStart="true"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#6E6C6C"
-                            android:text="@string/_00"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="15sp"
-                            android:layout_alignParentEnd="true"
-                            android:textStyle="bold"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/mobile"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="15sp"
-                            android:layout_alignParentStart="true"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#6E6C6C"
-                            android:text="@string/_91_9000000009"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="15sp"
-                            android:layout_alignParentEnd="true"
-                            android:textStyle="bold"/>
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="16dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Game Stats"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:gravity="center"/>
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
+                    <!-- Level and XP -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginTop="8dp">
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical">
 
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="XP:" android:textStyle="bold"/>
-                        <TextView android:id="@+id/xpValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_level" app:tint="@color/white"/>
 
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Level:" android:textStyle="bold"/>
-                        <TextView android:id="@+id/levelValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1"/>
+                        <TextView
+                            android:id="@+id/levelValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Level: 1"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
 
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rank:" android:textStyle="bold"/>
-                        <TextView android:id="@+id/rankValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-"/>
+                        <ProgressBar
+                            android:id="@+id/xpProgressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="12dp"
+                            android:layout_weight="1"
+                            android:max="100"
+                            android:progress="40"
+                            android:progressTint="?attr/colorPrimary"/>
 
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Total Wins:" android:textStyle="bold"/>
-                        <TextView android:id="@+id/totalWinsValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
-
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Current Streak:" android:textStyle="bold"/>
-                        <TextView android:id="@+id/currentStreakValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
-
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Highest Streak:" android:textStyle="bold"/>
-                        <TextView android:id="@+id/highestStreakValue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"/>
-
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Per Game:" android:textStyle="bold" android:layout_marginTop="8dp"/>
-                        <TextView android:id="@+id/stat_guess_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Guess The Number: 0"/>
-                        <TextView android:id="@+id/stat_rps" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rock Paper Scissors: 0"/>
-                        <TextView android:id="@+id/stat_even_odd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Even or Odd: 0"/>
-                        <TextView android:id="@+id/stat_ttt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tic Tac Toe: 0"/>
-                        <TextView android:id="@+id/stat_math" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Math Quiz High Score: 0"/>
-                        <TextView android:id="@+id/stat_hl" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Higher Lower: 0"/>
+                        <TextView
+                            android:id="@+id/xpValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="400/1000 XP"
+                            android:textColor="#AAAAAA"
+                            android:textSize="12sp" />
                     </LinearLayout>
+
+                    <!-- Stats Grid -->
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:columnCount="2"
+                        android:rowCount="3">
+
+                        <!-- Rank Stat -->
+                        <com.google.android.material.card.MaterialCardView style="@style/StatCard">
+                            <LinearLayout style="@style/StatContainer">
+                                <ImageView style="@style/StatIcon" android:src="@drawable/ic_rank"/>
+                                <TextView style="@style/StatLabel" android:text="Rank"/>
+                                <TextView android:id="@+id/rankValue" style="@style/StatValue" android:text="1"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Total Wins Stat -->
+                        <com.google.android.material.card.MaterialCardView style="@style/StatCard">
+                            <LinearLayout style="@style/StatContainer">
+                                <ImageView style="@style/StatIcon" android:src="@drawable/ic_wins"/>
+                                <TextView style="@style/StatLabel" android:text="Total Wins"/>
+                                <TextView android:id="@+id/totalWinsValue" style="@style/StatValue" android:text="0"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Highest Streak Stat -->
+                        <com.google.android.material.card.MaterialCardView style="@style/StatCard">
+                            <LinearLayout style="@style/StatContainer">
+                                <ImageView style="@style/StatIcon" android:src="@drawable/ic_streak"/>
+                                <TextView style="@style/StatLabel" android:text="Highest Streak"/>
+                                <TextView android:id="@+id/highestStreakValue" style="@style/StatValue" android:text="0"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Current Streak Stat -->
+                        <com.google.android.material.card.MaterialCardView style="@style/StatCard">
+                            <LinearLayout style="@style/StatContainer">
+                                <ImageView style="@style/StatIcon" android:src="@drawable/ic_current_streak"/>
+                                <TextView style="@style/StatLabel" android:text="Current Streak"/>
+                                <TextView android:id="@+id/currentStreakValue" style="@style/StatValue" android:text="0"/>
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </GridLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- User Information Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
-                app:cardCornerRadius="10dp">
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="#1E1E1E"
+                app:cardCornerRadius="12dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#333333">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="15dp">
+                    android:padding="16dp">
 
-                    <RelativeLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_information"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp">
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical">
+                        <ImageView style="@style/InfoIcon" android:src="@drawable/ic_email" />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/social_media"
-                            android:fontFamily="@font/poppinsmedium"
-                            android:textSize="15sp"
-                            android:layout_alignParentStart="true"
-                            android:textStyle="bold"/>
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:id="@+id/socialLinksContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="end"
-                        android:layout_marginTop="8dp">
-                        <Button
-                            android:id="@+id/btnAddLink"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Add Link"/>
-                        <Button
-                            android:id="@+id/btnEditLinks"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Edit Links"/>
+                            android:id="@+id/shoEmail"
+                            style="@style/InfoText"
+                            android:text="@string/axxxxxxa_gmail_com" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical">
+                        <ImageView style="@style/InfoIcon" android:src="@drawable/ic_gender" />
+                        <TextView
+                            android:id="@+id/genderName"
+                            style="@style/InfoText"
+                            android:text="@string/male" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical">
+                        <ImageView style="@style/InfoIcon" android:src="@drawable/ic_dob" />
+                        <TextView
+                            android:id="@+id/DOB"
+                            style="@style/InfoText"
+                            android:text="@string/_00_00_2024" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <RelativeLayout
+            <Button
+                android:id="@+id/logout_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_height="55dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#4A4A4A"
+                android:text="@string/logout"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-                <Button
-                    android:id="@+id/logout_button"
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="100dp"
-                    android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/poppinsmedium"
-                    android:gravity="center"
-                    android:text="@string/logout"
-                    android:textSize="25sp"
-                    app:cornerRadius="30dp" />
-
-                <Button
-                    android:id="@+id/btnSaveProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="16dp"
-                    android:text="Save"
-                    android:visibility="gone"/>
-                <Button
-                    android:id="@+id/btnCancelEdit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/btnSaveProfile"
-                    android:layout_marginEnd="8dp"
-                    android:text="Cancel"
-                    android:visibility="gone"/>
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/savingProgress"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_toStartOf="@id/btnCancelEdit"
-                    android:layout_marginEnd="8dp"
-                    android:visibility="gone"/>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:padding="12dp">
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabEdit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/baseline_edit_24"/>
-            </LinearLayout>
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_marginBottom="10dp">
+        <include layout="@layout/footer"/>
     </LinearLayout>
-</ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:backgroundTint="?attr/colorPrimary"
+        app:srcCompat="@drawable/ic_edit"
+        app:tint="@color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

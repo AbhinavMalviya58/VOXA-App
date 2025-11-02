@@ -41,4 +41,6 @@
     <string name="home">Home</string>
     <string name="random_text">sdncjdnjdsncjdsccdsncdncccdnscdscdc \n mmsmsmckssacanjcnsanjcnjcnsjncjcjsancjanscjan asnakndjnakjnneknjknajknjanjnsdjnsadjnjjnajns</string>
     <string name="game_icon">game_icon</string>
+    <string name="ic_heart">&#9829;</string>
+    <string name="ic_comment">&#128172;</string>
 </resources>

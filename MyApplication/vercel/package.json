@@ -1,0 +1,21 @@
+{
+  "name": "voxa-backend",
+  "version": "1.0.0",
+  "description": "Vercel serverless backend for VOXA app (replaces Firebase Cloud Functions without billing)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^37.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

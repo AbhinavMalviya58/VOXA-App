@@ -87,6 +87,8 @@ public class ChatListActivity extends AppCompatActivity {
                 adapter.setItems(items, false);
             }
         });
+
+        com.WANGDULabs.VOXA.ui.navigation.FooterController.bind(this, com.WANGDULabs.VOXA.ui.navigation.FooterController.Tab.HOME);
     }
 
     @Override

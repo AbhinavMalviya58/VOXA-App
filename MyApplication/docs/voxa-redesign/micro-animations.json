@@ -1,0 +1,9 @@
+{
+  "animations": [
+    {"id": "tabSwitchPulse", "type": "scale", "duration": 160, "from": 1.0, "to": 0.9, "easing": "easeOut"},
+    {"id": "xpProgressFill", "type": "progress", "duration": 800, "easing": "easeInOut"},
+    {"id": "levelUpConfetti", "type": "lottie", "asset": "lottie/level-up.json", "duration": 1600},
+    {"id": "likePress", "type": "lottie", "asset": "lottie/like.json", "duration": 400},
+    {"id": "messageSend", "type": "translateY", "from": 8, "to": 0, "duration": 180}
+  ]
+}

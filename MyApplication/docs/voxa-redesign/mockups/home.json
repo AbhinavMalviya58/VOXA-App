@@ -1,0 +1,15 @@
+{
+  "screen": "Home",
+  "id": "home_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "appbar", "id": "topbar", "frame": [0,0,1080,128], "title": "VOXA", "actions": [
+      {"icon": "search", "id": "actionSearch"},
+      {"icon": "message", "id": "actionChat"}
+    ]},
+    {"type": "search", "id": "search", "hint": "Search users", "frame": [24,144,1032,72]},
+    {"type": "list", "id": "feed", "frame": [0,232,1080,1968], "itemTemplate": "feedCard"},
+    {"type": "footer", "id": "footer", "frame": [0,2240,1080,160], "active": "home"}
+  ]
+}

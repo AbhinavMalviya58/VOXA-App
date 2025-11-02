@@ -1,0 +1,33 @@
+{
+  "screen": "Vox",
+  "id": "vox_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "appbar", "id": "topbar", "frame": [0,0,1080,128], "title": "Vox"},
+    {"type": "list", "id": "posts", "frame": [0,128,1080,2072], "itemTemplate": "postCard"},
+    {"type": "fab", "id": "compose", "icon": "plus", "frame": [900,2060,120,120], "gradient": "colors.gradients.cta"},
+    {"type": "footer", "id": "footer", "frame": [0,2240,1080,160], "active": "vox"}
+  ],
+  "templates": {
+    "postCard": {
+      "frame": [0,0,1080,420],
+      "layers": [
+        {"type": "row", "id": "header", "children": [
+          {"type": "avatar", "id": "author", "frame": [24,24,64,64]},
+          {"type": "column", "id": "meta", "children": [
+            {"type": "text", "id": "name", "style": {"weight": "bold"}},
+            {"type": "text", "id": "handle", "style": {"color": "colors.textSecondary"}}
+          ]}
+        ]},
+        {"type": "text", "id": "content", "frame": [24,108,1032,160]},
+        {"type": "image", "id": "media", "frame": [24,280,1032,520], "mode": "cover"},
+        {"type": "row", "id": "actions", "children": [
+          {"type": "iconText", "icon": "heart", "text": "1.2k"},
+          {"type": "iconText", "icon": "message-circle", "text": "256"},
+          {"type": "iconText", "icon": "share-2", "text": "Share"}
+        ], "frame": [24,820,1032,56]}
+      ]
+    }
+  }
+}

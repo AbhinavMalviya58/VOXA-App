@@ -1,0 +1,18 @@
+{
+  "screen": "Motor Control",
+  "id": "motor_control_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "appbar", "id": "topbar", "frame": [0,0,1080,128], "title": "Motor Control"},
+    {"type": "indicator", "id": "connection", "text": "Connected", "state": "success", "frame": [24,144,400,40]},
+    {"type": "joystick", "id": "stick", "frame": [100,320,400,400]},
+    {"type": "grid", "id": "controls", "cols": 2, "gap": 20, "frame": [540,320,420,420], "items": [
+      {"type": "button", "text": "Start"},
+      {"type": "button", "text": "Stop"},
+      {"type": "button", "text": "Speed+"},
+      {"type": "button", "text": "Speed-"}
+    ]},
+    {"type": "footer", "id": "footer", "frame": [0,2240,1080,160], "active": "home"}
+  ]
+}

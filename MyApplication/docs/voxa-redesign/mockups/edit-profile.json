@@ -1,0 +1,19 @@
+{
+  "screen": "Edit Profile",
+  "id": "edit_profile_v2",
+  "size": {"w": 1080, "h": 2400},
+  "layers": [
+    {"type": "rect", "id": "bg", "frame": [0,0,1080,2400], "fill": {"token": "colors.background"}},
+    {"type": "appbar", "id": "topbar", "frame": [0,0,1080,128], "title": "Edit Profile"},
+    {"type": "avatarPicker", "id": "avatar", "frame": [24,160,160,160]},
+    {"type": "imagePicker", "id": "banner", "frame": [200,160,856,160]},
+    {"type": "input", "label": "Display Name", "id": "displayName", "frame": [24,344,1032,80]},
+    {"type": "input", "label": "Handle", "id": "handle", "frame": [24,436,1032,80]},
+    {"type": "date", "label": "DOB", "id": "dob", "frame": [24,528,500,80]},
+    {"type": "select", "label": "Gender", "id": "gender", "options": ["Male","Female","Other"], "frame": [556,528,500,80]},
+    {"type": "input", "label": "Email", "id": "email", "frame": [24,620,1032,80]},
+    {"type": "textarea", "label": "Bio", "id": "bio", "frame": [24,712,1032,140]},
+    {"type": "switch", "label": "Private account", "id": "isPrivate", "frame": [24,860,1032,60]},
+    {"type": "button", "id": "save", "text": "Save", "frame": [24,940,1032,80], "gradient": "colors.gradients.cta"}
+  ]
+}
