@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -36,38 +37,52 @@ public class VercelApi {
         void onFailure(Exception e);
     }
 
-    // Generic POST helper
-    private static Task<JSONObject> post(String endpoint, JSONObject payload) {
+    // Acquire Firebase ID token for Authorization
+    private static Task<String> getIdToken() {
         return Tasks.call(executor, () -> {
-            try {
-                URL url = new URL(BASE_URL + endpoint);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json; utf-8");
-                conn.setRequestProperty("Accept", "application/json");
-                conn.setDoOutput(true);
-                try (OutputStream os = conn.getOutputStream()) {
-                    byte[] input = payload.toString().getBytes(StandardCharsets.UTF_8);
-                    os.write(input, 0, input.length);
-                }
-                int responseCode = conn.getResponseCode();
-                InputStream is = (responseCode >= 200 && responseCode < 300) ? conn.getInputStream() : conn.getErrorStream();
-                StringBuilder response = new StringBuilder();
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-                    String responseLine;
-                    while ((responseLine = br.readLine()) != null) {
-                        response.append(responseLine.trim());
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            if (auth.getCurrentUser() == null) throw new IllegalStateException("Not signed in");
+            GetTokenResult result = Tasks.await(auth.getCurrentUser().getIdToken(false));
+            return result.getToken();
+        });
+    }
+
+    // Generic POST helper with Bearer token
+    private static Task<JSONObject> post(String endpoint, JSONObject payload) {
+        return getIdToken().continueWithTask(tokenTask -> {
+            final String token = tokenTask.getResult();
+            return Tasks.call(executor, () -> {
+                try {
+                    URL url = new URL(BASE_URL + endpoint);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Authorization", "Bearer " + token);
+                    conn.setRequestProperty("Content-Type", "application/json; utf-8");
+                    conn.setRequestProperty("Accept", "application/json");
+                    conn.setDoOutput(true);
+                    try (OutputStream os = conn.getOutputStream()) {
+                        byte[] input = payload.toString().getBytes(StandardCharsets.UTF_8);
+                        os.write(input, 0, input.length);
                     }
+                    int responseCode = conn.getResponseCode();
+                    InputStream is = (responseCode >= 200 && responseCode < 300) ? conn.getInputStream() : conn.getErrorStream();
+                    StringBuilder response = new StringBuilder();
+                    try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                        String responseLine;
+                        while ((responseLine = br.readLine()) != null) {
+                            response.append(responseLine.trim());
+                        }
+                    }
+                    if (responseCode >= 200 && responseCode < 300) {
+                        return new JSONObject(response.toString());
+                    } else {
+                        throw new IOException("HTTP " + responseCode + ": " + response.toString());
+                    }
+                } catch (IOException | JSONException e) {
+                    Log.e(TAG, "Vercel API error", e);
+                    throw e;
                 }
-                if (responseCode >= 200 && responseCode < 300) {
-                    return new JSONObject(response.toString());
-                } else {
-                    throw new IOException("HTTP " + responseCode + ": " + response.toString());
-                }
-            } catch (IOException | JSONException e) {
-                Log.e(TAG, "Vercel API error", e);
-                throw e;
-            }
+            });
         });
     }
 
@@ -136,5 +151,38 @@ public class VercelApi {
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Failed to award XP", e);
                 });
+    }
+
+    // Multiplayer endpoints
+    public static Task<JSONObject> createRoom(@NonNull String gameType) {
+        JSONObject payload = new JSONObject();
+        try { payload.put("gameType", gameType); } catch (JSONException e) { return Tasks.forException(e); }
+        return post("/createRoom", payload);
+    }
+
+    public static Task<JSONObject> joinRoom(@NonNull String roomId) {
+        JSONObject payload = new JSONObject();
+        try { payload.put("roomId", roomId); } catch (JSONException e) { return Tasks.forException(e); }
+        return post("/joinRoom", payload);
+    }
+
+    public static Task<JSONObject> submitMove(@NonNull String roomId, @NonNull JSONObject moveData) {
+        try { moveData.put("roomId", roomId); } catch (JSONException e) { return Tasks.forException(e); }
+        return post("/submitMove", moveData);
+    }
+
+    public static Task<JSONObject> finishGame(@NonNull String roomId, Integer score) {
+        JSONObject payload = new JSONObject();
+        try {
+            payload.put("roomId", roomId);
+            if (score != null) payload.put("score", score);
+        } catch (JSONException e) { return Tasks.forException(e); }
+        return post("/finishGame", payload);
+    }
+
+    public static Task<JSONObject> exitRoom(@NonNull String roomId) {
+        JSONObject payload = new JSONObject();
+        try { payload.put("roomId", roomId); } catch (JSONException e) { return Tasks.forException(e); }
+        return post("/exitRoom", payload);
     }
 }

@@ -11,10 +11,19 @@ if (!admin.apps.length) {
 }
 const db = admin.firestore();
 
+async function requireAuth(req, res) {
+  const token = req.headers.authorization?.split('Bearer ')[1];
+  if (!token) { res.status(401).json({ error: 'Unauthorized' }); return null; }
+  try { return await admin.auth().verifyIdToken(token); } catch (e) { res.status(401).json({ error: 'Invalid token' }); return null; }
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const { uid, other } = req.body;
-  if (!uid || !other) return res.status(400).json({ error: 'Missing uid or other' });
+  const auth = await requireAuth(req, res);
+  if (!auth) return;
+  const { other } = req.body;
+  const uid = auth.uid;
+  if (!other) return res.status(400).json({ error: 'Missing other' });
   try {
     const batch = db.batch();
     const userRef = db.collection('users').doc(uid);

@@ -2,8 +2,109 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write;
+
+    function isSignedIn() { return request.auth != null; }
+
+    // Users
+    match /users/{uid} {
+      allow read: if true;
+      allow write: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    // User handles and display names
+    match /userIds/{handle} {
+      allow read: if true;
+      allow create: if isSignedIn() && !exists(/databases/$(database)/documents/userIds/$(handle)) &&
+                    request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+    match /displayNames/{nameLc} {
+      allow read: if true;
+      allow create: if isSignedIn() && !exists(/databases/$(database)/documents/displayNames/$(nameLc)) &&
+                    request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+
+    // Follows
+    match /follows/{uid}/following/{other} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == uid;
+    }
+    match /follows/{uid}/followers/{other} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == other;
+    }
+
+    // Conversations & messages
+    match /conversations/{cid} {
+      allow read: if isSignedIn() && (request.auth.uid in resource.data.participants);
+      allow write: if false;
+      match /messages/{mid} {
+        allow read: if isSignedIn() && (request.auth.uid in get(/databases/$(database)/documents/conversations/$(cid)).data.participants);
+        allow create: if isSignedIn();
+        allow update, delete: if false;
+      }
+    }
+
+    // Multiplayer rooms
+    function roomDoc(roomId) { return get(/databases/$(database)/documents/rooms/$(roomId)); }
+    function isParticipantRoom(roomId) {
+      let r = roomDoc(roomId).data;
+      return isSignedIn() && (request.auth.uid == r.hostUid || request.auth.uid == r.opponentUid);
+    }
+
+    match /rooms/{roomId} {
+      allow read: if isParticipantRoom(roomId);
+      allow create: if isSignedIn() &&
+        request.resource.data.hostUid == request.auth.uid &&
+        request.resource.data.opponentUid == null &&
+        request.resource.data.status == 'waiting' &&
+        (request.resource.data.gameType in ['RPS','TicTacToe','GuessNumber','MathQuiz','EvenOdd']);
+
+      // Only allow opponent to join (set opponentUid) and status transitions to 'playing' or 'finished'.
+      allow update: if isSignedIn() && isParticipantRoom(roomId) &&
+        request.resource.data.hostUid == resource.data.hostUid &&
+        request.resource.data.gameType == resource.data.gameType && (
+          (
+            // Join: opponent fills in and moves to playing
+            resource.data.opponentUid == null &&
+            request.resource.data.opponentUid != null &&
+            request.resource.data.opponentUid != resource.data.hostUid &&
+            request.resource.data.status == 'playing'
+          ) ||
+          (
+            // Finish: either participant may mark finished
+            request.resource.data.status == 'finished'
+          )
+        );
+      allow delete: if false;
+
+      // Moves subcollection: each player may only write their own move doc
+      match /moves/{uid} {
+        allow read: if isParticipantRoom(roomId);
+        allow create, update: if isParticipantRoom(roomId) && isSignedIn() && request.auth.uid == uid;
+        allow delete: if false;
+      }
+
+      // Result collection: server authoritative only (client read-only)
+      match /result/{docId} {
+        allow read: if isParticipantRoom(roomId);
+        allow write: if false;
+      }
+
+      // State collection: server authoritative (client read-only)
+      match /state/{docId} {
+        allow read: if isParticipantRoom(roomId);
+        allow write: if false;
+      }
+
+      // Server collection: hidden
+      match /server/{docId} {
+        allow read: if false;
+        allow write: if false;
+      }
     }
   }
 }

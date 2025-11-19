@@ -49,13 +49,21 @@ async function createNotification(uid, type, dataObj) {
   });
 }
 
+async function requireAuth(req, res) {
+  const token = req.headers.authorization?.split('Bearer ')[1];
+  if (!token) { res.status(401).json({ error: 'Unauthorized' }); return null; }
+  try { return await admin.auth().verifyIdToken(token); } catch (e) { res.status(401).json({ error: 'Invalid token' }); return null; }
+}
+
 // API: awardXP (callable replacement)
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const { uid, amount, reason } = req.body;
-  if (!uid || amount == null) return res.status(400).json({ error: 'Missing uid or amount' });
+  const auth = await requireAuth(req, res);
+  if (!auth) return;
+  const { amount, reason } = req.body;
+  if (amount == null) return res.status(400).json({ error: 'Missing amount' });
   try {
-    const result = await awardXP(uid, amount, reason);
+    const result = await awardXP(auth.uid, amount, reason);
     res.status(200).json(result);
   } catch (e) {
     res.status(500).json({ error: e.message });
