@@ -2,6 +2,7 @@ package com.WANGDULabs.VOXA.data.remote;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
+import com.WANGDULabs.VOXA.BuildConfig;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,8 +27,8 @@ import java.util.concurrent.Executors;
  */
 public class VoxApi {
     private static final String TAG = "VoxApi";
-    // Replace with your deployed backend URL (Vercel or Render)
-    private static final String BASE_URL = "https://your-backend.vercel.app";
+    // Backend base URL comes from BuildConfig so it matches VercelApi
+    private static final String BASE_URL = BuildConfig.VERCEL_BASE_URL;
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public interface VoxCallback<T> {
