@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GetTokenResult;
+import com.WANGDULabs.VOXA.BuildConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -29,7 +30,7 @@ import java.util.concurrent.Executors;
 public class VercelApi {
     private static final String TAG = "VercelApi";
     // Replace with your deployed Vercel URL
-    private static final String BASE_URL = "https://your-vercel-app.vercel.app/api";
+    private static final String BASE_URL = BuildConfig.VERCEL_BASE_URL;
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public interface VercelCallback<T> {
